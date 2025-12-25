@@ -1,0 +1,194 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import DropGrid from "../components/DropGrid.astro";
+import LabelChip from "../components/LabelChip.astro";
+import { products } from "../data/products";
+import { latestDrop } from "../data/drops";
+
+const latestProducts = products.filter((p) => p.drop === latestDrop.name);
+const base = import.meta.env.BASE_URL;
+---
+
+<MainLayout>
+	<!-- Hero Section -->
+	<section
+		class="relative min-h-[90vh] flex flex-col justify-center px-6 overflow-hidden"
+	>
+		<div class="absolute inset-0 z-0">
+			<div class="w-full h-full bg-void opacity-50 absolute inset-0">
+			</div>
+			<img
+				src={`${base}images/hero-main.webp`}
+				alt="DropCulture Hero"
+				class="w-full h-full object-cover"
+			/>
+		</div>
+
+		<div class="relative z-10 max-w-5xl">
+			<div class="mb-6 flex items-center gap-4 reveal-up">
+				<LabelChip text="Latest Drop" type="acid" />
+				<span
+					class="text-bone/60 text-[10px] uppercase tracking-[0.3em] font-bold"
+					>SYSTEM FAIL // 2025</span
+				>
+			</div>
+
+			<h1
+				class="text-bone font-space font-black leading-[0.85] mb-8 reveal-up"
+				style="transition-delay: 100ms"
+			>
+				BRUTAL<br />
+				<span class="text-acid">CLARITY</span><br />
+				ESTABLISHED.
+			</h1>
+
+			<p
+				class="text-bone/80 font-space text-lg md:text-xl max-w-md mb-12 uppercase tracking-tight leading-snug reveal-up"
+				style="transition-delay: 200ms"
+			>
+				An editorial study in digital decay and brutalist structures.
+				Engineered for the uncompromising.
+			</p>
+
+			<div
+				class="flex flex-wrap gap-6 reveal-up"
+				style="transition-delay: 300ms"
+			>
+				<a
+					href={`${base}drops`}
+					class="bg-acid text-bone px-8 py-4 font-space font-bold uppercase tracking-widest hover:bg-bone hover:text-ink transition-all"
+				>
+					Shop the Drop
+				</a>
+				<a
+					href={`${base}lookbook`}
+					class="border border-bone text-bone px-8 py-4 font-space font-bold uppercase tracking-widest hover:bg-bone hover:text-ink transition-all"
+				>
+					View Lookbook
+				</a>
+			</div>
+		</div>
+
+		<!-- Static Countdown / Vertical Metadata -->
+		<div
+			class="absolute right-6 bottom-12 hidden lg:flex flex-col items-end gap-12 z-10"
+		>
+			<div
+				class="rotate-90 origin-right translate-y-full flex items-center gap-4 text-bone/40 text-[10px] uppercase tracking-[0.4em] font-bold"
+			>
+				<span>EST. 2025</span>
+				<div class="w-24 h-px bg-bone/20"></div>
+				<span>PERTH // WA</span>
+			</div>
+
+			<div
+				class="flex flex-col items-end gap-2 border-r-2 border-acid pr-6 py-4"
+			>
+				<span
+					class="text-acid text-[10px] uppercase tracking-widest font-black"
+					>Next Release In</span
+				>
+				<span
+					class="text-bone font-space text-5xl font-light tracking-tighter"
+					>04:12:45:00</span
+				>
+				<span class="text-bone/40 text-[10px] uppercase tracking-widest"
+					>DD : HH : MM : SS</span
+				>
+			</div>
+		</div>
+	</section>
+
+	<!-- Editorial Section -->
+	<section
+		class="py-24 px-6 grid grid-cols-1 md:grid-cols-12 gap-12 border-b border-line-light"
+	>
+		<div class="md:col-span-5 flex flex-col justify-center reveal-up">
+			<h2
+				class="mb-8 font-black uppercase text-6xl md:text-8xl tracking-tighter leading-none"
+			>
+				THE<br />
+				<span
+					class="text-acid underline decoration-4 underline-offset-8"
+					>VOICE</span
+				><br />
+				OF VOID
+			</h2>
+			<p
+				class="text-muted text-lg uppercase tracking-tight max-w-sm mb-8 leading-relaxed"
+			>
+				We don't design for the masses. We design for the intersections.
+				Where the digital meets the physical. Where the noise finds its
+				frequency.
+			</p>
+			<div class="flex gap-4">
+				<div class="w-12 h-px bg-ink mt-3"></div>
+				<span class="text-xs font-bold uppercase tracking-widest"
+					>Principles // 001</span
+				>
+			</div>
+		</div>
+
+		<div
+			class="md:col-span-7 aspect-[16/9] bg-ink overflow-hidden reveal-up"
+		>
+			<img
+				src={`${base}images/editorial-01.webp`}
+				alt="Editorial Visual"
+				class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000"
+			/>
+		</div>
+	</section>
+
+	<!-- Latest Drop Grid -->
+	<DropGrid products={latestProducts} title="SYSTEM FAIL" />
+
+	<!-- Visit Store CTA -->
+	<section
+		class="py-32 px-6 flex flex-col items-center text-center bg-void text-bone relative overflow-hidden"
+	>
+		<!-- Background pattern -->
+		<div
+			class="absolute inset-0 opacity-10 pointer-events-none"
+			style="background-image: radial-gradient(circle, #FF2DAB 1px, transparent 1px); background-size: 32px 32px;"
+		>
+		</div>
+
+		<div class="max-w-3xl relative z-10">
+			<h2
+				class="text-4xl md:text-6xl font-space font-black uppercase tracking-tighter mb-8 reveal-up"
+			>
+				PHYSICAL<br />MANIFESTATION
+			</h2>
+			<p
+				class="text-bone/60 text-lg uppercase tracking-tight mb-12 reveal-up"
+			>
+				Experience the collection in its true form. Our concept stores
+				in Perth, Northbridge, and Subiaco are now open.
+			</p>
+			<a
+				href={`${base}store`}
+				class="inline-block border-2 border-acid text-acid px-12 py-5 font-space font-bold uppercase tracking-[0.2em] hover:bg-acid hover:text-bone transition-all reveal-up"
+			>
+				Find a Store
+			</a>
+		</div>
+	</section>
+</MainLayout>
+
+<script>
+	const observer = new IntersectionObserver(
+		(entries) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					entry.target.classList.add("is-visible");
+				}
+			});
+		},
+		{ threshold: 0.1 },
+	);
+
+	document
+		.querySelectorAll(".reveal-up")
+		.forEach((el) => observer.observe(el));
+</script>

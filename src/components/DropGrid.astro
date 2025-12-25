@@ -1,0 +1,65 @@
+---
+import PosterCard from "./PosterCard.astro";
+
+interface Props {
+    products: any[];
+    title?: string;
+}
+
+const { products, title } = Astro.props;
+---
+
+<section class="py-24 px-6">
+    {
+        title && (
+            <div class="mb-16 border-b border-ink pb-4 flex justify-between items-end">
+                <h2 class="uppercase font-space font-black text-5xl md:text-7xl tracking-[ -0.05em] leading-[0.85]">
+                    {title.split(" ").map((word, i) => (
+                        <span class={i % 2 === 1 ? "text-acid" : ""}>
+                            {word}{" "}
+                        </span>
+                    ))}
+                </h2>
+                <div class="hidden md:block text-xs uppercase font-bold tracking-[0.2em] text-muted mb-2">
+                    Archive // 2025 // 01
+                </div>
+            </div>
+        )
+    }
+
+    <div
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-x-6 md:gap-y-12"
+    >
+        {
+            products.map((product, index) => (
+                <div
+                    class:list={[
+                        "reveal-up",
+                        index % 3 === 1 ? "md:mt-12" : "",
+                        index % 3 === 2 ? "md:mt-24" : "",
+                    ]}
+                >
+                    <PosterCard product={product} />
+                </div>
+            ))
+        }
+    </div>
+</section>
+
+<script>
+    // Simple intersection observer for reveals
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("is-visible");
+                }
+            });
+        },
+        { threshold: 0.1 },
+    );
+
+    document
+        .querySelectorAll(".reveal-up")
+        .forEach((el) => observer.observe(el));
+</script>

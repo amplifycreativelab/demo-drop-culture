@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-bone text-ink font-inter antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-space tracking-tight;
+  }
+
+  h1 {
+    font-size: clamp(2.2rem, 6vw, 5rem);
+  }
+
+  h2 {
+    font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+  }
+
+  /* No rounded corners, no shadows as per design philosphy */
+  * {
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-acid outline-offset-2;
+  }
+}
+
+@layer components {
+  .poster-border {
+    @apply border border-line-light;
+  }
+
+  .magenta-accent {
+    @apply text-acid;
+  }
+
+  .label-printer {
+    @apply bg-ink text-bone px-2 py-0.5 text-xs uppercase tracking-wider inline-block;
+  }
+
+  .label-printer-acid {
+    @apply bg-acid text-bone px-2 py-0.5 text-xs uppercase tracking-wider inline-block;
+  }
+}
+
+@layer utilities {
+  .negative-tracking {
+    letter-spacing: -0.03em;
+  }
+
+  .reveal-up {
+    mask-image: linear-gradient(to top, black 0%, black 100%);
+    mask-size: 100% 0%;
+    mask-repeat: no-repeat;
+    mask-position: bottom;
+    transition: mask-size 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .reveal-up.is-visible {
+    mask-size: 100% 100%;
+  }
+}

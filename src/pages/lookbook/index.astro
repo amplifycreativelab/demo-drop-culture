@@ -1,0 +1,115 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import LabelChip from "../../components/LabelChip.astro";
+
+const base = import.meta.env.BASE_URL;
+
+const editorialImages = [
+    { src: "images/lookbook-01.webp", label: "VOID // 01", size: "large" },
+    { src: "images/lookbook-02.webp", label: "DECAY // 02", size: "small" },
+    { src: "images/lookbook-03.webp", label: "SYSTEM // 03", size: "small" },
+    { src: "images/lookbook-04.webp", label: "FALL // 04", size: "medium" },
+    {
+        src: "images/lookbook-05.webp",
+        label: "STRUCTURE // 05",
+        size: "medium",
+    },
+    { src: "images/lookbook-06.webp", label: "GHOST // 06", size: "large" },
+];
+---
+
+<MainLayout
+    title="LOOKBOOK // DROPCULTURE"
+    description="Editorial visual archive of the DropCulture universe."
+>
+    <div
+        class="px-6 py-20 border-b border-line-light flex flex-col items-center text-center"
+    >
+        <LabelChip text="Visual Archive" type="acid" class="mb-4" />
+        <h1
+            class="font-space font-black text-7xl md:text-9xl tracking-[-0.05em] leading-[0.8] mb-8"
+        >
+            MANIFESTO
+        </h1>
+        <p
+            class="text-muted text-xs uppercase tracking-[0.4em] font-bold max-w-xl"
+        >
+            A curated collection of visual artifacts. The intersection of
+            garment and environment. Captured in high contrast. No compromise.
+        </p>
+    </div>
+
+    <section class="p-6 md:p-12">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12">
+            {
+                editorialImages.map((img, i) => (
+                    <div
+                        class:list={[
+                            "reveal-up border border-line-light group overflow-hidden relative",
+                            img.size === "large"
+                                ? "md:col-span-12 aspect-[21/9]"
+                                : "",
+                            img.size === "medium"
+                                ? "md:col-span-8 aspect-[16/9]"
+                                : "",
+                            img.size === "small"
+                                ? "md:col-span-4 aspect-square"
+                                : "",
+                        ]}
+                        style={`transition-delay: ${i * 100}ms`}
+                    >
+                        <img
+                            src={`${base}${img.src}`}
+                            alt={img.label}
+                            class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000"
+                        />
+                        <div class="absolute bottom-4 left-4">
+                            <LabelChip
+                                text={img.label}
+                                type="default"
+                                class="opacity-0 group-hover:opacity-100 transition-opacity"
+                            />
+                        </div>
+                        <div class="absolute top-4 right-4 text-[10px] text-bone/40 uppercase tracking-[0.3em] font-bold opacity-0 group-hover:opacity-100 transition-opacity">
+                            [ Scan // Arch ]
+                        </div>
+                    </div>
+                ))
+            }
+        </div>
+    </section>
+
+    <div
+        class="py-24 px-6 border-t border-line-light flex flex-col items-center bg-void text-bone"
+    >
+        <div class="w-12 h-px bg-acid mb-8"></div>
+        <h2
+            class="font-space font-bold text-2xl uppercase tracking-[0.2em] mb-8"
+        >
+            END OF LOG
+        </h2>
+        <a
+            href={`${base}drops`}
+            class="text-acid hover:text-bone transition-colors uppercase font-black tracking-widest text-xs border-b-2 border-acid pb-1"
+        >
+            Return to Archive
+        </a>
+    </div>
+</MainLayout>
+
+<script>
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("is-visible");
+                }
+            });
+        },
+        { threshold: 0.1 },
+    );
+
+    document
+        .querySelectorAll(".reveal-up")
+        .forEach((el) => observer.observe(el));
+</script>

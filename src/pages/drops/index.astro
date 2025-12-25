@@ -1,0 +1,98 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import DropGrid from "../../components/DropGrid.astro";
+import { products } from "../../data/products";
+import { drops } from "../../data/drops";
+
+const base = import.meta.env.BASE_URL;
+---
+
+<MainLayout
+    title="DROPS // DROPCULTURE"
+    description="Archive and current collections of DropCulture."
+>
+    <div class="px-6 py-20 border-b border-line-light">
+        <div
+            class="flex flex-col md:flex-row justify-between items-baseline gap-8"
+        >
+            <div>
+                <h1
+                    class="font-space font-black text-7xl md:text-9xl tracking-[-0.05em] leading-[0.8] mb-4"
+                >
+                    COLLECTIONS
+                </h1>
+                <p
+                    class="text-muted text-xs uppercase tracking-[0.3em] font-bold"
+                >
+                    Archive // Current // Genesis
+                </p>
+            </div>
+
+            <!-- Mock Filter UI -->
+            <div class="flex flex-wrap gap-4">
+                <div class="flex flex-col gap-2">
+                    <span
+                        class="text-[10px] uppercase font-black text-muted tracking-widest"
+                        >Filter By Drop</span
+                    >
+                    <div class="flex gap-2">
+                        <button
+                            class="px-2 py-0.5 text-[10px] uppercase tracking-widest font-bold bg-acid text-bone"
+                            >All Drops</button
+                        >
+                        {
+                            drops.map((drop) => (
+                                <button class="px-2 py-0.5 text-[10px] uppercase tracking-widest font-bold bg-ink text-bone hover:bg-acid transition-colors">
+                                    {drop.name.split(":")[0]}
+                                </button>
+                            ))
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="min-h-screen">
+        {
+            drops.map((drop) => (
+                <div class="border-b border-line-light last:border-0">
+                    <div class="px-6 py-12 bg-ink text-bone flex justify-between items-center group cursor-default">
+                        <div>
+                            <span class="text-acid text-xs font-bold uppercase tracking-[0.2em] mb-2 block">
+                                {drop.releaseDate}
+                            </span>
+                            <h2 class="font-space font-bold text-4xl md:text-5xl tracking-tighter group-hover:text-acid transition-colors underline decoration-1 underline-offset-8 decoration-line-dark">
+                                {drop.name}
+                            </h2>
+                        </div>
+                        <div class="hidden md:block max-w-xs text-right opacity-60 text-xs uppercase leading-relaxed tracking-tight">
+                            {drop.description}
+                        </div>
+                    </div>
+
+                    <DropGrid
+                        products={products.filter((p) => p.drop === drop.name)}
+                    />
+                </div>
+            ))
+        }
+    </section>
+
+    <!-- Lookbook Teaser -->
+    <section
+        class="bg-acid p-12 text-bone text-center border-t border-line-light"
+    >
+        <h3
+            class="font-space font-black text-3xl md:text-5xl uppercase tracking-tighter mb-6"
+        >
+            WANT TO SEE MORE?
+        </h3>
+        <a
+            href={`${base}lookbook`}
+            class="inline-block bg-bone text-ink px-10 py-4 font-space font-bold uppercase tracking-widest hover:bg-ink hover:text-bone transition-all"
+        >
+            ENTER THE LOOKBOOK
+        </a>
+    </section>
+</MainLayout>

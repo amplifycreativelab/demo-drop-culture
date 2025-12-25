@@ -1,0 +1,158 @@
+---
+import { ViewTransitions } from 'astro:transitions';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  canonicalURL?: string;
+}
+
+const {
+  title = "DropCulture // Editorial Brutal Retail",
+  description = "A high-impact concept store for streetwear and editorial fashion. Based in Perth, WA.",
+  image = "/og-image.webp", // Default OG image path
+  canonicalURL = Astro.url.href,
+} = Astro.props;
+
+const base = import.meta.env.BASE_URL;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Primary Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(image, Astro.url)} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={new URL(image, Astro.url)} />
+
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+
+    <ViewTransitions />
+  </head>
+  <body class="bg-bone text-ink selection:bg-acid selection:text-bone">
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 bg-acid text-bone px-4 py-2 z-50">
+      Skip to content
+    </a>
+
+    <nav class="fixed top-0 left-0 w-full z-40 bg-bone/80 backdrop-blur-sm border-b border-line-light px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-8">
+        <a href={base} class="font-space font-bold text-xl tracking-tighter hover:text-acid transition-colors">DROPCULTURE</a>
+        <div class="hidden md:flex gap-6 uppercase text-xs tracking-widest font-bold">
+          <a href={`${base}drops`} class="hover:underline decoration-acid decoration-2 underline-offset-4">Shop Drop</a>
+          <a href={`${base}lookbook`} class="hover:underline decoration-acid decoration-2 underline-offset-4">Lookbook</a>
+          <a href={`${base}store`} class="hover:underline decoration-acid decoration-2 underline-offset-4">Visit Store</a>
+        </div>
+      </div>
+      <div class="flex gap-6 uppercase text-xs tracking-widest font-bold">
+        <a href={`${base}contact`} class="hover:underline decoration-acid decoration-2 underline-offset-4">Enquire</a>
+        <div class="relative group">
+          <button class="hover:text-acid">Cart (0)</button>
+        </div>
+      </div>
+    </nav>
+
+    <main id="main-content" class="pt-20">
+      <slot />
+    </main>
+
+    <footer class="mt-24 border-t border-line-light px-6 py-12 bg-void text-bone">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div>
+          <h3 class="font-space text-2xl font-bold mb-4 tracking-tighter">DROPCULTURE</h3>
+          <p class="text-muted text-sm max-w-xs uppercase tracking-tight leading-relaxed">
+            Perth concept store. Streetwear & editorial retail. 
+            Curated selection of brutalist aesthetics and graphic discipline.
+          </p>
+        </div>
+        <div>
+          <h4 class="text-xs uppercase tracking-widest font-bold mb-4 text-acid">Locations</h4>
+          <ul class="text-sm space-y-2 uppercase tracking-tight">
+            <li>Perth CBD // 120 William St</li>
+            <li>Northbridge // 45 James St</li>
+            <li>Subiaco // 12 Rokeby Rd</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-xs uppercase tracking-widest font-bold mb-4 text-acid">Connect</h4>
+          <ul class="text-sm space-y-2 uppercase tracking-tight">
+            <li><a href="#" class="hover:text-acid">Instagram</a></li>
+            <li><a href="#" class="hover:text-acid">Newsletter</a></li>
+            <li><a href={`${base}contact`} class="hover:text-acid">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-12 text-[10px] uppercase tracking-[0.2em] text-muted flex justify-between">
+        <p>&copy; 2025 DROPCULTURE SYSTEM INC.</p>
+        <div class="flex gap-4">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- LocalBusiness Schema -->
+    <script type="application/ld+json" is:inline>
+      {
+        "@context": "https://schema.org",
+        "@type": "Store",
+        "name": "DropCulture",
+        "image": "https://amplifycreativelab.github.io/drop-culture/og-image.webp",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "120 William St",
+          "addressLocality": "Perth",
+          "addressRegion": "WA",
+          "postalCode": "6000",
+          "addressCountry": "AU"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": -31.9505,
+          "longitude": 115.8605
+        },
+        "url": "https://amplifycreativelab.github.io/drop-culture/",
+        "telephone": "+61812345678",
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "10:00",
+            "closes": "18:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Saturday",
+            "opens": "10:00",
+            "closes": "20:00"
+          }
+        ]
+      }
+    </script>
+  </body>
+</html>

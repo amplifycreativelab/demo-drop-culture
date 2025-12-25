@@ -1,0 +1,25 @@
+---
+interface Props {
+    text: string;
+    type?: "default" | "acid" | "outline";
+    class?: string;
+}
+
+const { text, type = "default", class: className } = Astro.props;
+
+const styles = {
+    default: "bg-ink text-bone",
+    acid: "bg-acid text-bone",
+    outline: "border border-line-light text-muted bg-transparent",
+};
+---
+
+<span
+    class:list={[
+        "px-2 py-0.5 text-[10px] uppercase tracking-widest font-bold inline-block",
+        styles[type],
+        className,
+    ]}
+>
+    {text}
+</span>

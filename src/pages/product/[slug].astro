@@ -1,0 +1,192 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import LabelChip from "../../components/LabelChip.astro";
+import PosterCard from "../../components/PosterCard.astro";
+import { products } from "../../data/products";
+
+export function getStaticPaths() {
+    return products.map((product) => ({
+        params: { slug: product.slug },
+        props: { product },
+    }));
+}
+
+const { product } = Astro.props as { product: any };
+const relatedProducts = products
+    .filter((p) => p.drop === product.drop && p.slug !== product.slug)
+    .slice(0, 3);
+const base = import.meta.env.BASE_URL;
+---
+
+<MainLayout
+    title={`${product.title} // DROPCULTURE`}
+    description={product.description}
+>
+    <div
+        class="px-6 py-12 md:py-24 grid grid-cols-1 lg:grid-cols-12 gap-12 bg-bone"
+    >
+        <!-- Left: Imagery -->
+        <div class="lg:col-span-7 flex flex-col gap-6">
+            <div class="reveal-up border border-line-light">
+                <img
+                    src={`${base}${product.images[0]}`}
+                    alt={product.title}
+                    class="w-full h-auto object-cover aspect-[4/5]"
+                />
+            </div>
+            {
+                product.images[1] && (
+                    <div
+                        class="reveal-up border border-line-light"
+                        style="transition-delay: 200ms"
+                    >
+                        <img
+                            src={`${base}${product.images[1]}`}
+                            alt={`${product.title} view 2`}
+                            class="w-full h-auto object-cover aspect-[4/5]"
+                        />
+                    </div>
+                )
+            }
+        </div>
+
+        <!-- Right: Content -->
+        <div
+            class="lg:col-span-5 flex flex-col gap-12 lg:sticky lg:top-32 self-start"
+        >
+            <div class="flex flex-col gap-4 reveal-up">
+                <div class="flex justify-between items-baseline">
+                    <h1
+                        class="font-space font-black text-5xl md:text-7xl tracking-tighter leading-none"
+                    >
+                        {product.title}
+                    </h1>
+                    <span
+                        class="font-space text-3xl font-light tracking-tighter"
+                        >${product.price}</span
+                    >
+                </div>
+                <div class="flex items-center gap-2">
+                    <LabelChip text={product.drop} />
+                    <LabelChip text={product.category} type="outline" />
+                </div>
+            </div>
+
+            <div class="reveal-up" style="transition-delay: 100ms">
+                <h3
+                    class="text-[10px] uppercase font-black tracking-[0.2em] text-muted mb-4 border-b border-line-light pb-2"
+                >
+                    Description // Manifest
+                </h3>
+                <p
+                    class="text-sm uppercase leading-relaxed tracking-tight max-w-sm"
+                >
+                    {product.description}
+                </p>
+            </div>
+
+            <div class="reveal-up" style="transition-delay: 200ms">
+                <h3
+                    class="text-[10px] uppercase font-black tracking-[0.2em] text-muted mb-4 border-b border-line-light pb-2"
+                >
+                    Select Size // Scale
+                </h3>
+                <div class="flex flex-wrap gap-2">
+                    {
+                        ["S", "M", "L", "XL"].map((size) => (
+                            <button class="w-12 h-12 border border-ink flex items-center justify-center font-bold text-xs hover:bg-acid hover:text-bone hover:border-acid transition-all focus:outline-acid">
+                                {size}
+                            </button>
+                        ))
+                    }
+                </div>
+            </div>
+
+            <div
+                class="flex flex-col gap-4 reveal-up"
+                style="transition-delay: 300ms"
+            >
+                <button
+                    class:list={[
+                        "w-full py-5 font-space font-bold uppercase tracking-[0.2em] transition-all",
+                        product.status === "available"
+                            ? "bg-ink text-bone hover:bg-acid"
+                            : "bg-muted text-bone cursor-not-allowed",
+                    ]}
+                >
+                    {
+                        product.status === "available"
+                            ? "Add to Manifest"
+                            : product.status.replace("-", " ")
+                    }
+                </button>
+                <p
+                    class="text-[10px] text-center uppercase tracking-widest opacity-40"
+                >
+                    Limited batch production. No restocks confirmed.
+                </p>
+            </div>
+
+            <div
+                class="grid grid-cols-2 gap-4 border-t border-line-light pt-8 reveal-up"
+                style="transition-delay: 400ms"
+            >
+                <div>
+                    <h4
+                        class="text-[10px] uppercase font-black tracking-widest text-muted mb-1"
+                    >
+                        Origin
+                    </h4>
+                    <p class="text-[10px] uppercase font-bold">
+                        Western Australia
+                    </p>
+                </div>
+                <div>
+                    <h4
+                        class="text-[10px] uppercase font-black tracking-widest text-muted mb-1"
+                    >
+                        Logistics
+                    </h4>
+                    <p class="text-[10px] uppercase font-bold">
+                        Priority Dispatch
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Related Products -->
+    {
+        relatedProducts.length > 0 && (
+            <section class="border-t border-line-light py-24 px-6 bg-bone">
+                <div class="mb-12 border-b border-ink pb-4">
+                    <h2 class="font-space font-black text-4xl uppercase tracking-tighter">
+                        SIMILAR ENTITIES
+                    </h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    {relatedProducts.map((p) => (
+                        <PosterCard product={p} />
+                    ))}
+                </div>
+            </section>
+        )
+    }
+</MainLayout>
+
+<script>
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("is-visible");
+                }
+            });
+        },
+        { threshold: 0.1 },
+    );
+
+    document
+        .querySelectorAll(".reveal-up")
+        .forEach((el) => observer.observe(el));
+</script>

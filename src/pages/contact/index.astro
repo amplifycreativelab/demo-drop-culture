@@ -1,0 +1,157 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import LabelChip from "../../components/LabelChip.astro";
+
+const base = import.meta.env.BASE_URL;
+---
+
+<MainLayout
+    title="ENQUIRE // DROPCULTURE"
+    description="Connect with the DropCulture system."
+>
+    <div
+        class="px-6 py-20 border-b border-line-light grid grid-cols-1 md:grid-cols-2 gap-20"
+    >
+        <div class="flex flex-col justify-center reveal-up">
+            <LabelChip text="Communication" type="acid" class="mb-6 w-fit" />
+            <h1
+                class="font-space font-black text-7xl md:text-8xl tracking-[-0.05em] leading-[0.85] mb-8 uppercase"
+            >
+                CONNECT<br />
+                THE<br />
+                SYSTEM
+            </h1>
+            <p
+                class="text-muted text-sm uppercase tracking-tight max-w-sm mb-12 leading-relaxed"
+            >
+                For order inquiries, collaboration requests, or technical
+                support. Expect a 24-48 hour response cycle.
+            </p>
+
+            <div class="flex flex-col gap-8">
+                <div>
+                    <h4
+                        class="text-[10px] uppercase font-black tracking-widest text-acid mb-2"
+                    >
+                        Electronic Mail
+                    </h4>
+                    <p class="text-xl font-space font-bold tracking-tighter">
+                        void@dropculture.system
+                    </p>
+                </div>
+                <div>
+                    <h4
+                        class="text-[10px] uppercase font-black tracking-widest text-acid mb-2"
+                    >
+                        Central Node
+                    </h4>
+                    <p class="text-xl font-space font-bold tracking-tighter">
+                        +61 [8] 1234 5678
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div
+            class="bg-bone border border-line-light p-8 md:p-12 reveal-up"
+            style="transition-delay: 200ms"
+        >
+            <form class="flex flex-col gap-8">
+                <div class="flex flex-col gap-2">
+                    <label
+                        for="name"
+                        class="text-[10px] uppercase font-black tracking-[0.2em] text-muted"
+                        >Entity Name</label
+                    >
+                    <input
+                        type="text"
+                        id="name"
+                        class="bg-transparent border-b-2 border-ink py-4 focus:outline-none focus:border-acid transition-colors font-space font-bold text-lg"
+                        placeholder="[ ENTER NAME ]"
+                    />
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label
+                        for="email"
+                        class="text-[10px] uppercase font-black tracking-[0.2em] text-muted"
+                        >Digital Ident</label
+                    >
+                    <input
+                        type="email"
+                        id="email"
+                        class="bg-transparent border-b-2 border-ink py-4 focus:outline-none focus:border-acid transition-colors font-space font-bold text-lg"
+                        placeholder="[ ENTER EMAIL ]"
+                    />
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label
+                        for="subject"
+                        class="text-[10px] uppercase font-black tracking-[0.2em] text-muted"
+                        >Channel</label
+                    >
+                    <select
+                        id="subject"
+                        class="bg-transparent border-b-2 border-ink py-4 focus:outline-none focus:border-acid transition-colors font-space font-bold text-lg appearance-none cursor-pointer"
+                    >
+                        <option>ORDER_INQUIRY</option>
+                        <option>COLLAB_REQUEST</option>
+                        <option>PRESS_RELEASE</option>
+                        <option>OTHER_SIGNAL</option>
+                    </select>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label
+                        for="message"
+                        class="text-[10px] uppercase font-black tracking-[0.2em] text-muted"
+                        >Manifest Details</label
+                    >
+                    <textarea
+                        id="message"
+                        rows="4"
+                        class="bg-transparent border-b-2 border-ink py-4 focus:outline-none focus:border-acid transition-colors font-space font-bold text-lg resize-none"
+                        placeholder="[ TRANSMIT SIGNAL ]"></textarea>
+                </div>
+
+                <button
+                    type="submit"
+                    class="bg-ink text-bone py-6 font-space font-black uppercase tracking-[0.3em] hover:bg-acid transition-colors mt-4"
+                >
+                    Initiate Transmission
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <section
+        class="py-24 px-6 border-b border-line-light bg-void text-bone text-center"
+    >
+        <h2
+            class="font-space font-black text-4xl md:text-6xl tracking-tighter mb-8 reveal-up uppercase"
+        >
+            NEAREST PHYSICAL NODE?
+        </h2>
+        <a
+            href={`${base}store`}
+            class="inline-block border-2 border-acid text-acid px-12 py-5 font-space font-bold uppercase tracking-[0.2em] hover:bg-acid hover:text-bone transition-all reveal-up"
+        >
+            View Store Locations
+        </a>
+    </section>
+</MainLayout>
+
+<script>
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("is-visible");
+                }
+            });
+        },
+        { threshold: 0.1 },
+    );
+
+    document
+        .querySelectorAll(".reveal-up")
+        .forEach((el) => observer.observe(el));
+</script>
