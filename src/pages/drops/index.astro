@@ -55,7 +55,7 @@ const base = import.meta.env.BASE_URL;
 
     <section class="min-h-screen">
         {
-            drops.map((drop) => (
+            drops.map((drop, dropIndex) => (
                 <div class="border-b border-line-light last:border-0">
                     <div class="px-6 py-12 bg-ink text-bone flex justify-between items-center group cursor-default">
                         <div>
@@ -73,6 +73,7 @@ const base = import.meta.env.BASE_URL;
 
                     <DropGrid
                         products={products.filter((p) => p.drop === drop.name)}
+                        priority={dropIndex === 0}
                     />
                 </div>
             ))

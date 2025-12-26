@@ -49,39 +49,52 @@ const editorialImages = [
     <section class="p-6 md:p-12">
         <div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12">
             {
-                editorialImages.map((img, i) => (
-                    <div
-                        class:list={[
-                            "reveal-up border border-line-light group overflow-hidden relative",
-                            img.size === "large"
-                                ? "md:col-span-12 aspect-[21/9]"
-                                : "",
-                            img.size === "medium"
-                                ? "md:col-span-8 aspect-[16/9]"
-                                : "",
-                            img.size === "small"
-                                ? "md:col-span-4 aspect-square"
-                                : "",
-                        ]}
-                        style={`transition-delay: ${i * 100}ms`}
-                    >
-                        <Image
-                            src={img.src}
-                            alt={img.label}
-                            class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000"
-                        />
-                        <div class="absolute bottom-4 left-4">
-                            <LabelChip
-                                text={img.label}
-                                type="default"
-                                class="opacity-0 group-hover:opacity-100 transition-opacity"
+                editorialImages.map((img, i) => {
+                    const sizes =
+                        img.size === "large"
+                            ? "(min-width: 768px) 100vw, 100vw"
+                            : img.size === "medium"
+                                ? "(min-width: 768px) 67vw, 100vw"
+                                : "(min-width: 768px) 33vw, 100vw";
+
+                    return (
+                        <div
+                            class:list={[
+                                "reveal-up border border-line-light group overflow-hidden relative",
+                                img.size === "large"
+                                    ? "md:col-span-12 aspect-[21/9]"
+                                    : "",
+                                img.size === "medium"
+                                    ? "md:col-span-8 aspect-[16/9]"
+                                    : "",
+                                img.size === "small"
+                                    ? "md:col-span-4 aspect-square"
+                                    : "",
+                            ]}
+                            style={`transition-delay: ${Math.min(i * 60, 240)}ms`}
+                        >
+                            <Image
+                                src={img.src}
+                                alt={img.label}
+                                loading={i === 0 ? "eager" : "lazy"}
+                                fetchpriority={i === 0 ? "high" : "auto"}
+                                widths={[480, 768, 1024]}
+                                sizes={sizes}
+                                class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000"
                             />
+                            <div class="absolute bottom-4 left-4">
+                                <LabelChip
+                                    text={img.label}
+                                    type="default"
+                                    class="opacity-0 group-hover:opacity-100 transition-opacity"
+                                />
+                            </div>
+                            <div class="absolute top-4 right-4 text-[10px] text-bone/40 uppercase tracking-[0.3em] font-bold opacity-0 group-hover:opacity-100 transition-opacity">
+                                [ Scan // Arch ]
+                            </div>
                         </div>
-                        <div class="absolute top-4 right-4 text-[10px] text-bone/40 uppercase tracking-[0.3em] font-bold opacity-0 group-hover:opacity-100 transition-opacity">
-                            [ Scan // Arch ]
-                        </div>
-                    </div>
-                ))
+                    );
+                })
             }
         </div>
     </section>
@@ -113,7 +126,7 @@ const editorialImages = [
                 }
             });
         },
-        { threshold: 0.1 },
+        { threshold: 0.1, rootMargin: "150px 0px" },
     );
 
     document
