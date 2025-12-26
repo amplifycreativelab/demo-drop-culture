@@ -1,20 +1,27 @@
 ---
+import { Image } from "astro:assets";
 import MainLayout from "../../layouts/MainLayout.astro";
 import LabelChip from "../../components/LabelChip.astro";
+import lookbook01 from "../../assets/images/lookbook-01.webp";
+import lookbook02 from "../../assets/images/lookbook-02.webp";
+import lookbook03 from "../../assets/images/lookbook-03.webp";
+import lookbook04 from "../../assets/images/lookbook-04.webp";
+import lookbook05 from "../../assets/images/lookbook-05.webp";
+import lookbook06 from "../../assets/images/lookbook-06.webp";
 
 const base = import.meta.env.BASE_URL;
 
 const editorialImages = [
-    { src: "images/lookbook-01.webp", label: "VOID // 01", size: "large" },
-    { src: "images/lookbook-02.webp", label: "DECAY // 02", size: "small" },
-    { src: "images/lookbook-03.webp", label: "SYSTEM // 03", size: "small" },
-    { src: "images/lookbook-04.webp", label: "FALL // 04", size: "medium" },
+    { src: lookbook01, label: "VOID // 01", size: "large" },
+    { src: lookbook02, label: "DECAY // 02", size: "small" },
+    { src: lookbook03, label: "SYSTEM // 03", size: "small" },
+    { src: lookbook04, label: "FALL // 04", size: "medium" },
     {
-        src: "images/lookbook-05.webp",
+        src: lookbook05,
         label: "STRUCTURE // 05",
         size: "medium",
     },
-    { src: "images/lookbook-06.webp", label: "GHOST // 06", size: "large" },
+    { src: lookbook06, label: "GHOST // 06", size: "large" },
 ];
 ---
 
@@ -58,8 +65,8 @@ const editorialImages = [
                         ]}
                         style={`transition-delay: ${i * 100}ms`}
                     >
-                        <img
-                            src={`${base}${img.src}`}
+                        <Image
+                            src={img.src}
                             alt={img.label}
                             class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000"
                         />

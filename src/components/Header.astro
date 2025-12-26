@@ -1,0 +1,307 @@
+---
+const base = import.meta.env.BASE_URL;
+---
+
+<header
+    class="fixed top-0 left-0 w-full z-40 bg-bone/80 backdrop-blur-sm border-b border-line-light transition-all duration-300"
+    id="site-header"
+>
+    <div class="px-6 py-4 flex justify-between items-center relative z-50">
+        <!-- Logo -->
+        <div class="flex items-center gap-8">
+            <a
+                href={base}
+                id="nav-logo"
+                class="font-space font-bold text-xl tracking-tighter hover:text-acid transition-colors text-ink relative z-50"
+            >
+                DROPCULTURE
+            </a>
+        </div>
+
+        <!-- Desktop Nav -->
+        <nav
+            class="hidden md:flex gap-6 uppercase text-xs tracking-widest font-bold"
+        >
+            <a
+                href={`${base}drops`}
+                class="hover:underline decoration-acid decoration-2 underline-offset-4"
+                >Shop Drop</a
+            >
+            <a
+                href={`${base}lookbook`}
+                class="hover:underline decoration-acid decoration-2 underline-offset-4"
+                >Lookbook</a
+            >
+            <a
+                href={`${base}store`}
+                class="hover:underline decoration-acid decoration-2 underline-offset-4"
+                >Visit Store</a
+            >
+        </nav>
+
+        <!-- Right Actions -->
+        <div
+            class="flex items-center gap-6 uppercase text-xs tracking-widest font-bold relative z-50"
+        >
+            <a
+                href={`${base}contact`}
+                id="nav-enquire"
+                class="hidden md:block hover:underline decoration-acid decoration-2 underline-offset-4 text-ink transition-colors"
+                >Enquire</a
+            >
+            <button
+                id="nav-cart"
+                class="hover:text-acid transition-colors text-ink"
+                >Cart (0)</button
+            >
+
+            <!-- Mobile Menu Toggle -->
+            <button
+                id="menu-toggle"
+                class="md:hidden flex flex-col gap-1.5 w-8 items-end group relative z-50"
+                aria-label="Toggle Menu"
+            >
+                <span
+                    class="w-full h-0.5 bg-ink group-hover:bg-acid transition-all duration-300 origin-right"
+                ></span>
+                <span
+                    class="w-3/4 h-0.5 bg-ink group-hover:bg-acid transition-all duration-300 origin-right"
+                ></span>
+                <span
+                    class="w-1/2 h-0.5 bg-ink group-hover:bg-acid transition-all duration-300 origin-right"
+                ></span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div
+        id="mobile-overlay"
+        class="fixed inset-0 z-40 w-screen h-[100dvh] bg-acid opacity-0 pointer-events-none transition-opacity duration-300 overflow-y-auto"
+        style="background-color: rgba(255, 45, 171, 1) !important; backdrop-filter: blur(4px);"
+    >
+        <!-- Background Grid Effect -->
+        <div
+            class="absolute inset-0 opacity-10 pointer-events-none z-0"
+            style="background-image: linear-gradient(to right, #000 1px, transparent 1px), linear-gradient(to bottom, #000 1px, transparent 1px); background-size: 40px 40px;"
+        >
+        </div>
+
+        <!-- Menu Content Wrapper -->
+        <div class="relative z-50 w-full h-full flex flex-col pt-24 pb-8 px-6">
+            <!-- Nav Links -->
+            <nav
+                class="flex-1 flex flex-col justify-center items-center gap-4 text-center w-full"
+            >
+                <div class="overflow-hidden">
+                    <a
+                        href={`${base}drops`}
+                        class="mobile-link block font-space font-black text-4xl sm:text-6xl md:text-7xl text-ink hover:text-bone transition-transform duration-500 tracking-tighter translate-y-[120%]"
+                    >
+                        SHOP DROP
+                    </a>
+                </div>
+                <div class="overflow-hidden">
+                    <a
+                        href={`${base}lookbook`}
+                        class="mobile-link block font-space font-black text-4xl sm:text-6xl md:text-7xl text-ink hover:text-bone transition-transform duration-500 tracking-tighter translate-y-[120%]"
+                        style="transition-delay: 0.1s"
+                    >
+                        LOOKBOOK
+                    </a>
+                </div>
+                <div class="overflow-hidden">
+                    <a
+                        href={`${base}store`}
+                        class="mobile-link block font-space font-black text-4xl sm:text-6xl md:text-7xl text-ink hover:text-bone transition-transform duration-500 tracking-tighter translate-y-[120%]"
+                        style="transition-delay: 0.2s"
+                    >
+                        VISIT STORE
+                    </a>
+                </div>
+                <div class="overflow-hidden">
+                    <a
+                        href={`${base}contact`}
+                        class="mobile-link block font-space font-black text-4xl sm:text-6xl md:text-7xl text-ink hover:text-bone transition-transform duration-500 tracking-tighter translate-y-[120%]"
+                        style="transition-delay: 0.3s"
+                    >
+                        ENQUIRE
+                    </a>
+                </div>
+            </nav>
+
+            <!-- Footer Info -->
+            <div
+                class="w-full flex justify-between text-ink/60 text-[10px] uppercase tracking-widest font-bold shrink-0 mt-8"
+            >
+                <span>SYS.ONLINE</span>
+                <span>PERTH // WA</span>
+            </div>
+        </div>
+    </div>
+</header>
+
+<script>
+    function setupMenu() {
+        const toggleBtn = document.getElementById("menu-toggle");
+        const mobileMenu = document.getElementById("mobile-overlay");
+        const mobileLinks = document.querySelectorAll(".mobile-link");
+        const bars = toggleBtn?.querySelectorAll("span");
+
+        const navLogo = document.getElementById("nav-logo");
+        const navEnquire = document.getElementById("nav-enquire");
+        const navCart = document.getElementById("nav-cart");
+
+        // SAFEGUARD: Ensure NO bg-void class exists if it was cached or stuck
+        if (mobileMenu) {
+            mobileMenu.classList.remove("bg-void");
+        }
+
+        let isOpen = false;
+
+        // Force strict reset of styles
+        const closeMenu = () => {
+            isOpen = false;
+            mobileMenu?.classList.add("opacity-0", "pointer-events-none");
+            document.body.style.overflow = "";
+
+            // Revert Header Background
+            const header = document.getElementById("site-header");
+            header?.classList.remove("bg-acid/95");
+            header?.classList.add(
+                "bg-bone/80",
+                "border-b",
+                "border-line-light",
+            );
+
+            // Revert Background Color Inline explicitly
+            if (header) {
+                header.style.backgroundColor = "";
+                header.style.backdropFilter = "";
+            }
+
+            mobileLinks.forEach((link) => {
+                link.classList.add("translate-y-[120%]");
+            });
+
+            if (bars) {
+                // Reset Burger
+                bars.forEach((bar) => {
+                    bar.classList.add("origin-right");
+                    bar.classList.remove("origin-center");
+                    bar.classList.replace("bg-bone", "bg-ink");
+                    bar.classList.add("bg-ink");
+                    bar.classList.remove(
+                        "absolute",
+                        "top-1/2",
+                        "-translate-y-1/2",
+                        "left-0",
+                    );
+                    bar.style.transform = "";
+                    bar.style.opacity = "1";
+                    bar.style.width = ""; // Reset width overrides
+                });
+
+                // Restore original widths
+                bars[0].classList.add("w-full");
+                bars[1].classList.add("w-3/4");
+                bars[2].classList.add("w-1/2");
+
+                // Reset hover state
+                bars.forEach((bar) => {
+                    bar.classList.add("group-hover:bg-acid");
+                    bar.classList.remove("group-hover:bg-bone");
+                });
+            }
+
+            // Ensure text is black
+            navLogo?.classList.remove("text-bone");
+            navLogo?.classList.add("text-ink");
+
+            navEnquire?.classList.remove("text-bone");
+            navEnquire?.classList.add("text-ink");
+
+            navCart?.classList.remove("text-bone");
+            navCart?.classList.add("text-ink");
+        };
+
+        const openMenu = () => {
+            isOpen = true;
+            mobileMenu?.classList.remove("opacity-0", "pointer-events-none");
+            document.body.style.overflow = "hidden";
+
+            // Swap Header Background to Magenta
+            const header = document.getElementById("site-header");
+            header?.classList.remove(
+                "bg-bone/80",
+                "border-b",
+                "border-line-light",
+            );
+            // header?.classList.add('bg-acid/95');
+            // Use Direct Inline Style for reliability
+            if (header) {
+                header.style.backgroundColor = "rgba(255, 45, 171, 1)";
+                header.style.backdropFilter = "blur(4px)";
+            }
+
+            // Staggered reveal
+            requestAnimationFrame(() => {
+                mobileLinks.forEach((link) => {
+                    link.classList.remove("translate-y-[120%]");
+                });
+            });
+
+            if (bars) {
+                // Animate to X with centered origin logic
+                // Hide middle bar
+                bars[1].style.opacity = "0";
+
+                // Normalize widths for X
+                bars[0].classList.remove("w-full");
+                bars[2].classList.remove("w-1/2");
+                bars[0].style.width = "100%";
+                bars[2].style.width = "100%";
+
+                // Switch to center origin for rotation
+                bars.forEach((bar) => {
+                    bar.classList.remove("origin-right");
+                    bar.classList.add("origin-center");
+                    // Keep it black on magenta
+                    bar.classList.replace("bg-bone", "bg-ink");
+                    bar.classList.add("bg-ink");
+                    bar.classList.remove("group-hover:bg-acid");
+                    bar.classList.add("group-hover:bg-bone");
+                });
+
+                bars[0].style.transform = "translateY(8px) rotate(45deg)";
+                bars[2].style.transform = "translateY(-8px) rotate(-45deg)";
+            }
+
+            // Keep text black on magenta
+            navLogo?.classList.remove("text-bone");
+            navLogo?.classList.add("text-ink");
+
+            navEnquire?.classList.remove("text-bone");
+            navEnquire?.classList.add("text-ink");
+
+            navCart?.classList.remove("text-bone");
+            navCart?.classList.add("text-ink");
+        };
+
+        toggleBtn?.addEventListener("click", (e) => {
+            e.stopPropagation();
+            if (isOpen) closeMenu();
+            else openMenu();
+        });
+
+        mobileLinks.forEach((link) => {
+            link.addEventListener("click", closeMenu);
+        });
+
+        document.addEventListener("astro:before-preparation", closeMenu);
+    }
+
+    // Setup on load and view transitions
+    setupMenu();
+    document.addEventListener("astro:after-swap", setupMenu);
+</script>

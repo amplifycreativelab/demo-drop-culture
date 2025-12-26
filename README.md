@@ -1,43 +1,53 @@
-# Astro Starter Kit: Minimal
+# DropCulture // Editorial Brutal Retail
 
-```sh
-npm create astro@latest -- --template minimal
+A high-concept e-commerce store demo built with Astro 5, Tailwind CSS, and a custom "Lookbook Brutal" design system.
+
+## Project Structure
+
+- **`src/pages`**: Application routes (Home, Drops, Product, Lookbook, Store, Contact).
+- **`src/components`**: Reusable UI components (`PosterCard`, `DropGrid`, `LabelChip`).
+- **`src/layouts`**: Global layouts (`MainLayout`).
+- **`src/styles`**: Global CSS and design tokens.
+- **`src/data`**: Typescript-typed mock data for products and drops.
+
+## Tech Stack
+
+- **Framework**: [Astro 5](https://astro.build)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com) (Custom configuration in `tailwind.config.mjs`)
+- **Deployment**: Static Site Generation (SSG) for GitHub Pages.
+
+## key Features
+
+- **Editorial Brutalism**: High contrast, monochromatic pallete with Acid Magenta (`#FF2DAB`) accent.
+- **Micro-interactions**: Custom reveal animations using `IntersectionObserver` and CSS masks.
+- **Performance**: Zero-JS core, lazy-loaded images, static HTML generation.
+- **SEO/Accessibility**: Semantic HTML, ARIA labels, JSON-LD schemas.
+
+## Commands
+
+```bash
+# Install dependencies
+npm install
+
+# Start dev server
+npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Deployment
 
-## 🚀 Project Structure
+This project is configured for GitHub Pages with the base URL `/demo-drop-culture/`.
+To deploy:
 
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+1. Create a repository named `demo-drop-culture` on GitHub.
+2. Push the code:
+   ```bash
+   git remote add origin https://github.com/YOUR_USERNAME/demo-drop-culture.git
+   git push -u origin main
+   ```
+3. Enable GitHub Pages in repo settings (Source: GitHub Actions or deploy from branch).

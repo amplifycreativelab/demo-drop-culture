@@ -2,6 +2,7 @@
 import MainLayout from "../../layouts/MainLayout.astro";
 import LabelChip from "../../components/LabelChip.astro";
 import PosterCard from "../../components/PosterCard.astro";
+import { Image } from "astro:assets";
 import { products } from "../../data/products";
 
 export function getStaticPaths() {
@@ -15,7 +16,6 @@ const { product } = Astro.props as { product: any };
 const relatedProducts = products
     .filter((p) => p.drop === product.drop && p.slug !== product.slug)
     .slice(0, 3);
-const base = import.meta.env.BASE_URL;
 ---
 
 <MainLayout
@@ -28,8 +28,8 @@ const base = import.meta.env.BASE_URL;
         <!-- Left: Imagery -->
         <div class="lg:col-span-7 flex flex-col gap-6">
             <div class="reveal-up border border-line-light">
-                <img
-                    src={`${base}${product.images[0]}`}
+                <Image
+                    src={product.images[0]}
                     alt={product.title}
                     class="w-full h-auto object-cover aspect-[4/5]"
                 />
@@ -40,8 +40,8 @@ const base = import.meta.env.BASE_URL;
                         class="reveal-up border border-line-light"
                         style="transition-delay: 200ms"
                     >
-                        <img
-                            src={`${base}${product.images[1]}`}
+                        <Image
+                            src={product.images[1]}
                             alt={`${product.title} view 2`}
                             class="w-full h-auto object-cover aspect-[4/5]"
                         />

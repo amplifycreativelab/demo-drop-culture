@@ -1,3 +1,6 @@
+import heroDrop01 from '../assets/images/hero-drop-01.webp';
+import heroDrop02 from '../assets/images/hero-drop-02.webp';
+
 const drops = [
     {
         id: 'drop-01',
@@ -5,7 +8,7 @@ const drops = [
         releaseDate: '2025-11-15',
         status: 'active',
         description: 'A study in digital decay and brutalist structures. First release from the core collection.',
-        heroImage: 'images/hero-drop-01.webp'
+        heroImage: heroDrop01
     },
     {
         id: 'drop-02',
@@ -13,7 +16,7 @@ const drops = [
         releaseDate: '2026-02-01',
         status: 'upcoming',
         description: 'Navigating the silent intersections of the urban jungle. Coming soon.',
-        heroImage: 'images/hero-drop-02.webp'
+        heroImage: heroDrop02
     }
 ];
 

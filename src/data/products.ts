@@ -1,10 +1,20 @@
+import voidTee1 from '../assets/products/void-tee-1.webp';
+import voidTee2 from '../assets/products/void-tee-2.webp';
+import acidHoodie1 from '../assets/products/acid-hoodie-1.webp';
+import acidHoodie2 from '../assets/products/acid-hoodie-2.webp';
+import cargo1 from '../assets/products/cargo-1.webp';
+import cargo2 from '../assets/products/cargo-2.webp';
+import beanie1 from '../assets/products/beanie-1.webp';
+import phantomJacket1 from '../assets/products/phantom-jacket-1.webp';
+import tote1 from '../assets/products/tote-1.webp';
+
 const products = [
     {
         slug: 'void-heavy-tee',
         title: 'VOID HEAVY TEE',
         drop: 'DROP 01: SYSTEM FAIL',
         price: 85,
-        images: ['products/void-tee-1.webp', 'products/void-tee-2.webp'],
+        images: [voidTee1, voidTee2],
         sizes: ['S', 'M', 'L', 'XL'],
         status: 'available',
         category: 'TOPS',
@@ -15,7 +25,7 @@ const products = [
         title: 'ACID TRACE HOODIE',
         drop: 'DROP 01: SYSTEM FAIL',
         price: 180,
-        images: ['products/acid-hoodie-1.webp', 'products/acid-hoodie-2.webp'],
+        images: [acidHoodie1, acidHoodie2],
         sizes: ['M', 'L', 'XL'],
         status: 'available',
         category: 'OUTERWEAR',
@@ -26,7 +36,7 @@ const products = [
         title: 'INK CARGO V2',
         drop: 'DROP 01: SYSTEM FAIL',
         price: 220,
-        images: ['products/cargo-1.webp', 'products/cargo-2.webp'],
+        images: [cargo1, cargo2],
         sizes: ['30', '32', '34', '36'],
         status: 'sold-out',
         category: 'BOTTOMS',
@@ -37,7 +47,7 @@ const products = [
         title: 'CYBER KNIT BEANIE',
         drop: 'DROP 01: SYSTEM FAIL',
         price: 55,
-        images: ['products/beanie-1.webp'],
+        images: [beanie1],
         sizes: ['OS'],
         status: 'available',
         category: 'ACCESSORIES',
@@ -48,7 +58,7 @@ const products = [
         title: 'PHANTOM SHELL JACKET',
         drop: 'DROP 02: GHOST CITY',
         price: 320,
-        images: ['products/phantom-jacket-1.webp'],
+        images: [phantomJacket1],
         sizes: ['S', 'M', 'L', 'XL'],
         status: 'coming-soon',
         category: 'OUTERWEAR',
@@ -59,7 +69,7 @@ const products = [
         title: 'BRUTAL CANVAS TOTE',
         drop: 'DROP 01: SYSTEM FAIL',
         price: 45,
-        images: ['products/tote-1.webp'],
+        images: [tote1],
         sizes: ['OS'],
         status: 'available',
         category: 'ACCESSORIES',
