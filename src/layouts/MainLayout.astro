@@ -167,5 +167,45 @@ const jsonLd = {
       type="application/ld+json"
       set:html={JSON.stringify(jsonLd)}
     ></script>
+
+    <script type="module">
+      const key = "__dropcultureRevealUp";
+      const existing = window[key];
+
+      if (existing && typeof existing.observe === "function") {
+        existing.observe();
+      } else {
+        const observed = new WeakSet();
+        const observer =
+          "IntersectionObserver" in window
+            ? new IntersectionObserver(
+                (entries, obs) => {
+                  entries.forEach((entry) => {
+                    if (!entry.isIntersecting) return;
+                    entry.target.classList.add("is-visible");
+                    obs.unobserve(entry.target);
+                  });
+                },
+                { threshold: 0.1, rootMargin: "150px 0px" },
+              )
+            : null;
+
+        const observe = () => {
+          document.querySelectorAll(".reveal-up").forEach((el) => {
+            if (!(el instanceof HTMLElement)) return;
+            if (el.classList.contains("is-visible")) return;
+            if (observed.has(el)) return;
+            observed.add(el);
+
+            if (observer) observer.observe(el);
+            else el.classList.add("is-visible");
+          });
+        };
+
+        window[key] = { observe };
+        observe();
+        document.addEventListener("astro:after-swap", observe);
+      }
+    </script>
   </body>
 </html>

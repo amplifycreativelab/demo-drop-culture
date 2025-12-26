@@ -116,20 +116,3 @@ const editorialImages = [
         </a>
     </div>
 </MainLayout>
-
-<script>
-    const observer = new IntersectionObserver(
-        (entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add("is-visible");
-                }
-            });
-        },
-        { threshold: 0.1, rootMargin: "150px 0px" },
-    );
-
-    document
-        .querySelectorAll(".reveal-up")
-        .forEach((el) => observer.observe(el));
-</script>
