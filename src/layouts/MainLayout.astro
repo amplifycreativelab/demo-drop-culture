@@ -2,6 +2,7 @@
 import { ViewTransitions } from "astro:transitions";
 import "../styles/global.css";
 import Header from "../components/Header.astro";
+import DemoLayout from "./DemoLayout.astro";
 
 interface Props {
   title?: string;
@@ -14,46 +15,10 @@ const base = import.meta.env.BASE_URL;
 
 const {
   title = "DropCulture // Editorial Brutal Retail",
-  description = "A high-impact concept store for streetwear and editorial fashion. Based in Perth, WA.",
+  description = "A high-impact concept store demo for streetwear and editorial fashion.",
   image = `${base}og-image.webp`, // Default OG image path
   canonicalURL = Astro.url.href,
 } = Astro.props;
-
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Store",
-  name: "DropCulture",
-  image: new URL(`${base}og-image.webp`, Astro.site).href,
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "120 William St",
-    addressLocality: "Perth",
-    addressRegion: "WA",
-    postalCode: "6000",
-    addressCountry: "AU",
-  },
-  geo: {
-    "@type": "GeoCoordinates",
-    latitude: -31.9505,
-    longitude: 115.8605,
-  },
-  url: new URL(base, Astro.site).href,
-  telephone: "+61812345678",
-  openingHoursSpecification: [
-    {
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-      opens: "10:00",
-      closes: "18:00",
-    },
-    {
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: "Saturday",
-      opens: "10:00",
-      closes: "20:00",
-    },
-  ],
-};
 ---
 
 <!doctype html>
@@ -63,6 +28,7 @@ const jsonLd = {
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
     <meta name="generator" content={Astro.generator} />
+    <meta name="robots" content="noindex, nofollow" />
 
     <!-- Primary Meta Tags -->
     <title>{title}</title>
@@ -96,116 +62,114 @@ const jsonLd = {
     <ViewTransitions />
   </head>
   <body class="bg-bone text-ink selection:bg-acid selection:text-bone">
-    <a
-      href="#main-content"
-      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 bg-acid text-bone px-4 py-2 z-50"
-    >
-      Skip to content
-    </a>
-
-    <Header />
-
-    <main id="main-content" class="pt-20">
-      <slot />
-    </main>
-
-    <footer
-      class="mt-24 border-t border-line-light px-6 py-12 bg-void text-bone"
-    >
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-        <div>
-          <h3 class="font-space text-2xl font-bold mb-4 tracking-tighter">
-            DROPCULTURE
-          </h3>
-          <p
-            class="text-muted text-sm max-w-xs uppercase tracking-tight leading-relaxed"
-          >
-            Perth concept store. Streetwear & editorial retail. Curated
-            selection of brutalist aesthetics and graphic discipline.
-          </p>
-        </div>
-        <div>
-          <h4
-            class="text-xs uppercase tracking-widest font-bold mb-4 text-acid"
-          >
-            Locations
-          </h4>
-          <ul class="text-sm space-y-2 uppercase tracking-tight">
-            <li>Perth CBD // 120 William St</li>
-            <li>Northbridge // 45 James St</li>
-            <li>Subiaco // 12 Rokeby Rd</li>
-          </ul>
-        </div>
-        <div>
-          <h4
-            class="text-xs uppercase tracking-widest font-bold mb-4 text-acid"
-          >
-            Connect
-          </h4>
-          <ul class="text-sm space-y-2 uppercase tracking-tight">
-            <li><a href="#" class="hover:text-acid">Instagram</a></li>
-            <li><a href="#" class="hover:text-acid">Newsletter</a></li>
-            <li>
-              <a href={`${base}contact`} class="hover:text-acid">Contact</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div
-        class="mt-12 text-[10px] uppercase tracking-[0.2em] text-muted flex justify-between"
+    <DemoLayout>
+      <a
+        href="#main-content"
+        class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 bg-acid text-bone px-4 py-2 z-50"
       >
-        <p>&copy; 2025 DROPCULTURE SYSTEM INC.</p>
-        <div class="flex gap-4">
-          <a href="#">Privacy</a>
-          <a href="#">Terms</a>
+        Skip to content
+      </a>
+
+      <Header />
+
+      <main id="main-content" class="pt-20">
+        <slot />
+      </main>
+
+      <footer
+        class="mt-24 border-t border-line-light px-6 py-12 bg-void text-bone"
+      >
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+          <div>
+            <h3 class="font-space text-2xl font-bold mb-4 tracking-tighter">
+              DROPCULTURE
+            </h3>
+            <p
+              class="text-muted text-sm max-w-xs uppercase tracking-tight leading-relaxed"
+            >
+              Concept store system demo. Streetwear & editorial retail. Curated
+              selection of brutalist aesthetics and graphic discipline.
+            </p>
+          </div>
+          <div>
+            <h4
+              class="text-xs uppercase tracking-widest font-bold mb-4 text-acid"
+            >
+              Nodes
+            </h4>
+            <ul class="text-sm space-y-2 uppercase tracking-tight">
+              <li>Central Node // Sector 01</li>
+              <li>Studio Node // Sector 02</li>
+              <li>Warehouse Node // Sector 03</li>
+            </ul>
+          </div>
+          <div>
+            <h4
+              class="text-xs uppercase tracking-widest font-bold mb-4 text-acid"
+            >
+              Connect
+            </h4>
+            <ul class="text-sm space-y-2 uppercase tracking-tight">
+              <li><a href="#" class="hover:text-acid">Instagram</a></li>
+              <li><a href="#" class="hover:text-acid">Newsletter</a></li>
+              <li>
+                <a href={`${base}contact`} class="hover:text-acid">Contact</a>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
-    </footer>
+        <div
+          class="mt-12 text-[10px] uppercase tracking-[0.2em] text-muted flex justify-between"
+        >
+          <p>&copy; 2025 DROPCULTURE SYSTEM INC.</p>
+          <div class="flex gap-4">
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+          </div>
+        </div>
+      </footer>
 
-    <!-- LocalBusiness Schema -->
-    <script
-      type="application/ld+json"
-      set:html={JSON.stringify(jsonLd)}
-    ></script>
+      <!-- Non-indexed portfolio demo: intentionally no schema -->
 
-    <script type="module">
-      const key = "__dropcultureRevealUp";
-      const existing = window[key];
+      <script type="module">
+        const key = "__dropcultureRevealUp";
+        const existing = window[key];
 
-      if (existing && typeof existing.observe === "function") {
-        existing.observe();
-      } else {
-        const observed = new WeakSet();
-        const observer =
-          "IntersectionObserver" in window
-            ? new IntersectionObserver(
-                (entries, obs) => {
-                  entries.forEach((entry) => {
-                    if (!entry.isIntersecting) return;
-                    entry.target.classList.add("is-visible");
-                    obs.unobserve(entry.target);
-                  });
-                },
-                { threshold: 0.1, rootMargin: "150px 0px" },
-              )
-            : null;
+        if (existing && typeof existing.observe === "function") {
+          existing.observe();
+        } else {
+          const observed = new WeakSet();
+          const observer =
+            "IntersectionObserver" in window
+              ? new IntersectionObserver(
+                  (entries, obs) => {
+                    entries.forEach((entry) => {
+                      if (!entry.isIntersecting) return;
+                      entry.target.classList.add("is-visible");
+                      obs.unobserve(entry.target);
+                    });
+                  },
+                  { threshold: 0.1, rootMargin: "150px 0px" },
+                )
+              : null;
 
-        const observe = () => {
-          document.querySelectorAll(".reveal-up").forEach((el) => {
-            if (!(el instanceof HTMLElement)) return;
-            if (el.classList.contains("is-visible")) return;
-            if (observed.has(el)) return;
-            observed.add(el);
+          const observe = () => {
+            document.querySelectorAll(".reveal-up").forEach((el) => {
+              if (!(el instanceof HTMLElement)) return;
+              if (el.classList.contains("is-visible")) return;
+              if (observed.has(el)) return;
+              observed.add(el);
 
-            if (observer) observer.observe(el);
-            else el.classList.add("is-visible");
-          });
-        };
+              if (observer) observer.observe(el);
+              else el.classList.add("is-visible");
+            });
+          };
 
-        window[key] = { observe };
-        observe();
-        document.addEventListener("astro:after-swap", observe);
-      }
-    </script>
+          window[key] = { observe };
+          observe();
+          document.addEventListener("astro:after-swap", observe);
+        }
+      </script>
+    </DemoLayout>
   </body>
 </html>
